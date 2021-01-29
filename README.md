@@ -20,3 +20,43 @@ remotes::install_github("rspatial/terra")
 The package is not tested yet in Windows, but it should work..
 ### Notes
 ProbModis uses the Theia-snow cover products. Study areas out of [its boundaries](https://umap.openstreetmap.fr/fr/map/theias-sentinel-2-snow-tiles_156646#3/27.68/35.68) are not supported.
+### General workflow
+```
+library(ProbModis)
+
+#Input parameters
+time_window <- c(as.Date("2015-08-01"),Sys.Date())
+data("Pineta")
+study_area_boundaries=Pineta
+max_cloud = 30
+out_path_sen ="/home/esteban/Documentos/GIT/snowMODIS/borrar/out_sentinel"
+avoid = c(7,8,9)
+
+#Download the S2 files 
+downloadS2_theiasnow(out_path_sen, study_area_boundaries, time_window, max_cloud, username= "username", password = "password", avoid)
+
+#list and obtain info from the theia files
+theai_sca = list.files(out_path, full.names = T, pattern = "*.tif")
+metadata = get_file_info(theai_sca)
+
+#Download coincident MODIS snow cover files
+sapply(metadata$date, downloadMODIS,
+       study_area_boundaries=study_area_boundaries, satellite = "Combined",
+       username = "user", password = "pass",
+       out_path_mod ="/home/esteban/Documentos/GIT/snowMODIS/borrar/out_modis")
+
+
+#list and obtain info from the MODIS files
+modis_ndsi = list.files( "/home/esteban/Documentos/GIT/snowMODIS/borrar/out_modis", full.names = T, pattern = "*.tif")
+metada_mod = get_file_info(modis_ndsi)
+
+#Calculate fSCA from MODIS NDSI
+MOD_stack = terra::rast(modis_ndsi)
+MOD_stack = mod_fSCA(MOD_stack)
+
+#Read theai rasters
+S2_stack = terra::rast(theai_sca)
+
+#Compute ProbModis
+sen_prob = s2_probability(MOD_stack, S2_stack)
+```

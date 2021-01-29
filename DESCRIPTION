@@ -1,0 +1,22 @@
+Package: ProbModis
+Type: Package
+Title: Downscalling MODIS snow products
+Version: 0.1.0
+Author: c(
+	person("Esteban", "Alonso-González", role = c("cre", "aut"),  
+			email = "e.alonsog@ipe.csic.es", comment = c(ORCID = "0000-0002-1883-3823")))
+Maintainer: Esteban Alonso-González <e.alonsog@ipe.csic.es>
+Description: Simple functions to improve the MODIS snow products resolution using Sentinel-2 data.
+License: GPL (>= 3)
+Encoding: UTF-8
+LazyData: true
+Depends:  R (>= 2.10)
+Imports:
+  httr,
+  rvest,
+  terra,
+  xml2,
+Suggests:
+  sen2r
+NeedsCompilation: no
+RoxygenNote: 7.1.1
