@@ -10,9 +10,9 @@ In the last 5 years, Sentinel 2 products allow to observe snow presence with a m
   
   • PROBMODIS computes the probability of having snow covered Sentinel-2 pixel (20 m x 20) when MODIS pixels (500 m x 500 m) are partially snow covered.
 
-  • This probability is computed for all dates having concurrent Sentintel 2 and MODIS acquisitions in which these conditions are satisfied; no cloud presence inside MODIS pixels (neither in Sentinel-2 pixels), only a 20 % of the study area is affected by cloud presence and the snow covered fraction of MODIS pixels is comprised between 0.1 and 0.9.
+  • This probability is computed for all dates having concurrent Sentintel 2 and MODIS acquisitions in which these conditions are satisfied; no cloud presence inside MODIS pixels (neither in Sentinel-2 pixels), and the snow covered fraction of MODIS pixels is comprised between 0.1 and 0.9.
 
-  • The package has been designed to introduce a shapefile of the study area and download both MODIS and Sentinel-2 images for dates with simultaneous acquisition with cloud presence under 20% and compute the probability of snow occurrence inside MODIS pixels.
+  • The package has been designed to introduce a shapefile of the study area and download both MODIS and Sentinel-2 images for dates with simultaneous acquisition and compute the probability of snow occurrence inside MODIS pixels.
 
 Once ProbModis is computed for a specific study area, the snow covered fraction of MODIS pixels (500 m x 500 m) are easily transformed to presence/absence cartographies of snow at 20 x 20 m spatial resolution. 
 ## Installation
