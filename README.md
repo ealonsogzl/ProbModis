@@ -21,7 +21,7 @@ The package is not tested yet in Windows, but it should work..
 ### Notes
 ProbModis uses the Theia-snow cover products. Study areas out of [its boundaries](https://umap.openstreetmap.fr/fr/map/theias-sentinel-2-snow-tiles_156646#3/27.68/35.68) are not supported.
 ### General workflow
-```
+```R
 library(ProbModis)
 
 #Input parameters
