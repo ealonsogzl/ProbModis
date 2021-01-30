@@ -30,29 +30,29 @@ ProbModis uses the Theia-snow cover products. Study areas out of [its boundaries
 library(ProbModis)
 
 #Input parameters
-time_window <- c(as.Date("2015-08-01"),Sys.Date())
+time_window = c(as.Date("2015-08-01"),Sys.Date())
 data("Pineta")
 study_area_boundaries=Pineta
 max_cloud = 30
-out_path_sen ="/home/esteban/Documentos/GIT/snowMODIS/borrar/out_sentinel"
+out_path_sen ="./out_sentinel"
 avoid = c(7,8,9)
 
 #Download the S2 files 
 downloadS2_theiasnow(out_path_sen, study_area_boundaries, time_window, max_cloud, username= "username", password = "password", avoid)
 
 #list and obtain info from the theia files
-theai_sca = list.files(out_path, full.names = T, pattern = "*.tif")
+theai_sca = list.files(out_path_sen, full.names = T, pattern = "*.tif")
 metadata = get_file_info(theai_sca)
 
 #Download coincident MODIS snow cover files
 sapply(metadata$date, downloadMODIS,
        study_area_boundaries=study_area_boundaries, satellite = "Combined",
        username = "user", password = "pass",
-       out_path_mod ="/home/esteban/Documentos/GIT/snowMODIS/borrar/out_modis")
+       out_path_mod ="./out_modis")
 
 
 #list and obtain info from the MODIS files
-modis_ndsi = list.files( "/home/esteban/Documentos/GIT/snowMODIS/borrar/out_modis", full.names = T, pattern = "*.tif")
+modis_ndsi = list.files( "./out_modis", full.names = T, pattern = "*.tif")
 metada_mod = get_file_info(modis_ndsi)
 
 #Calculate fSCA from MODIS NDSI
