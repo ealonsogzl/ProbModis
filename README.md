@@ -38,7 +38,9 @@ out_path_sen ="./out_sentinel"
 avoid = c(7,8,9)
 
 #Download the S2 files 
-downloadS2_theiasnow(out_path_sen, study_area_boundaries, time_window, max_cloud, username= "username", password = "password", avoid)
+downloadS2_theiasnow(study_area_boundaries, time_window, max_cloud,
+                     username= "ealonso", password = "rumania77",
+                     out_path_sen, avoid)
 
 #list and obtain info from the theia files
 theai_sca = list.files(out_path_sen, full.names = T, pattern = "*.tif")
