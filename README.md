@@ -39,7 +39,7 @@ avoid = c(7,8,9)
 
 #Download the S2 files 
 downloadS2_theiasnow(study_area_boundaries, time_window, max_cloud,
-                     username= "ealonso", password = "rumania77",
+                     username= "usertheia", password = "passtheia",
                      out_path_sen, avoid)
 
 #list and obtain info from the theia files
@@ -49,7 +49,7 @@ metadata = get_file_info(theai_sca)
 #Download coincident MODIS snow cover files
 sapply(metadata$date, downloadMODIS,
        study_area_boundaries=study_area_boundaries, satellite = "Combined",
-       username = "user", password = "pass",
+       username = "userMOD", password = "passMOD",
        out_path_mod ="./out_modis")
 
 
