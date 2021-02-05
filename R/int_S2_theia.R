@@ -136,8 +136,16 @@ s2_theia_get_data = function(study_area_boundaries, time_window, out_path, max_c
                           "-d", as.character(id_bgn),
                           "-f", as.character(id_end))
     }
-    sys_command = paste("cd ",  tempdir(), "&&", sys_command) #avoid creation of auxiliary files out of the /tmp/
-    system(sys_command)
+
+    if(.Platform$OS.type == "unix") {
+      sys_command = paste("cd ",  tempdir(), "&&", sys_command)
+      system(sys_command)
+    } else if(.Platform$OS.type == "windows") {
+      sys_command = paste("pushd ",  tempdir(), "&&", sys_command)
+      shell(sys_command)
+    }else {
+      print( paste(.Platform$OS.type, "sytem not implemented yet"))
+    }
 
     new_zips = list.files(tmp_storage,full.names = T, pattern = "*zip")
 

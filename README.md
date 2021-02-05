@@ -49,7 +49,7 @@ metadata = get_file_info(theai_sca)
 #Download coincident MODIS snow cover files
 sapply(metadata$date, downloadMODIS,
        study_area_boundaries=study_area_boundaries, satellite = "Combined",
-       username = "userMOD", password = "passMOD",
+       username = "userMOD  ", password = "passMOD",
        out_path_mod ="./out_modis")
 
 
