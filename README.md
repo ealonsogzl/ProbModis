@@ -35,12 +35,12 @@ data("Pineta")
 study_area_boundaries=Pineta
 max_cloud = 30
 out_path_sen ="./out_sentinel"
-avoid = c(7,8,9)
+summer = c(7,8,9)
 
 #Download the S2 files 
 downloadS2_theiasnow(study_area_boundaries, time_window, max_cloud,
                      username= "usertheia", password = "passtheia",
-                     out_path_sen, avoid)
+                     out_path_sen, avoid = summer)
 
 #list and obtain info from the theia files
 theai_sca = list.files(out_path_sen, full.names = T, pattern = "*.tif")
