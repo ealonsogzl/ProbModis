@@ -65,8 +65,6 @@ setup_theia=function(username,password){
 #' @param buff password
 #' @param tile password
 #' @param avoid password
-#' @param product
-#' @param clean
 #'
 #' @keywords internal
 #'

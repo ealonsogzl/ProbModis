@@ -60,8 +60,7 @@ s2_probability = function(MOD_stack, S2_stack){
   MOD_stack_20 = terra::resample(MOD_stack,S2_stack, method ="near",
                                  MOD_stack_20_dir)
 
-  terra::add(MOD_stack_20) = S2_stack
-  all_stack_20 = MOD_stack_20
+  all_stack_20 = c(MOD_stack_20,S2_stack)
   sen_prob_dir = paste0(tempfile(),".tif")
   sen_prob=terra::app(all_stack_20, fun=calc_prob,filename = sen_prob_dir)
 

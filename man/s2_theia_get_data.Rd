@@ -34,8 +34,6 @@ s2_theia_get_data(
 \item{tile}{password}
 
 \item{avoid}{password}
-
-\item{clean}{}
 }
 \description{
 s2_theia_get_data
