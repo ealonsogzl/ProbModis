@@ -1,3 +1,8 @@
+#' get_file_info
+#'
+#'
+#' @export
+
 get_file_info = function(names){
   #remove dir and extension
   names = basename(names)
@@ -24,12 +29,22 @@ get_file_info = function(names){
   return(name_info)
 }
 
+#' mod_fSCA
+#'
+#'
+#' @export
+
 mod_fSCA = function(x, slp = 1.21 , intrcp = 6){
   fsca = x*slp + intrcp
   fsca[fsca>100] = 100
   fsca[fsca<0] = 0
   return(fsca)
 }
+
+#' s2_probability
+#'
+#' @importFrom terra nlyr resample add app
+#' @export
 
 s2_probability = function(MOD_stack, S2_stack){
 
@@ -40,7 +55,6 @@ s2_probability = function(MOD_stack, S2_stack){
   if(terra::nlyr(MOD_stack) != terra::nlyr(S2_stack)){
     stop("Different number of lyrs")
   }
-
 
   MOD_stack_20_dir = paste0(tempfile(),".tiff")
   MOD_stack_20 = terra::resample(MOD_stack,S2_stack, method ="near",
