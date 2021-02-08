@@ -50,7 +50,7 @@ metadata = get_file_info(theai_sca)
 sapply(metadata$date, downloadMODIS,
        study_area_boundaries=study_area_boundaries, satellite = "Combined",
        username = "userMOD  ", password = "passMOD",
-       out_path_mod ="./out_modis")
+       out_path ="./out_modis")
 
 
 #list and obtain info from the MODIS files
