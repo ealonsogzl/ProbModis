@@ -43,7 +43,7 @@ mod_fSCA = function(x, slp = 1.21 , intrcp = 6){
 
 #' s2_probability
 #'
-#' @importFrom terra nlyr resample add app
+#' @importFrom terra nlyr resample app
 #' @export
 
 s2_probability = function(MOD_stack, S2_stack){
