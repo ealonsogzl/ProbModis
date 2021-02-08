@@ -49,7 +49,7 @@ data("Pineta")
 #create temporal dir to store the data
 out_path = tempdir()
 
-# Download MODIS NDSI product (use your own credentials)
+# Download Theia snow cover products (use your own credentials)
 downloadS2_theiasnow(study_area_boundaries = Pineta,
               time_window = c(as.Date("2015-08-01"),Sys.Date()),
               max_cloud = 30,
