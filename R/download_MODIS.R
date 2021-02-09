@@ -124,7 +124,7 @@ downloadMODIS=function(study_area_boundaries, date, satellite, username, passwor
 
         print("Combinin scenes")
         modis_tile_MOD[is.na(modis_tile_MOD)] = 200
-        modis_tile_MOD[is.na(modis_tile_MYD)] = 200
+        modis_tile_MYD[is.na(modis_tile_MYD)] = 200
 
         #Combine both images, priority for MOD10A1
         modis_tile_MYD.arr=terra::values(modis_tile_MYD)
@@ -137,7 +137,7 @@ downloadMODIS=function(study_area_boundaries, date, satellite, username, passwor
 
       }else if(class(modis_tile_MYD) != "try-error" & class(modis_tile_MOD) == "try-error"){
         warning("modis_tile_MOD missed")
-        modis_tile_MOD[is.na(modis_tile_MYD)] = 200
+        modis_tile_MYD[is.na(modis_tile_MYD)] = 200
         modis_tile = modis_tile_MYD
         tidy_modis(modis_tile, name_out)
       }else if(class(modis_tile_MYD) == "try-error" & class(modis_tile_MOD) != "try-error"){
