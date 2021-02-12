@@ -4,7 +4,7 @@
 \alias{s2_probability}
 \title{s2_probability}
 \usage{
-s2_probability(MOD_stack, S2_stack)
+s2_probability(MOD_stack, S2_stack, upper_lim = 90, lower_lim = 10)
 }
 \description{
 s2_probability

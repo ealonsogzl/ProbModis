@@ -39,11 +39,11 @@
 #' mod_files = list.files(out_path,full.names = T)
 #' }
 #'
-#' @importFrom terra vect project crs crop ext xmin xmax ymin ymax merge
+#' @importFrom terra vect project crs crop ext xmin xmax ymin ymax merge shift
 #'
 #' @export
 
-downloadMODIS=function(study_area_boundaries, date, satellite, username, password, out_path, buff=3 ){
+downloadMODIS=function(study_area_boundaries, date, satellite, username, password, out_path, buff=5 ){
 
   if (!class(study_area_boundaries) %in% c("SpatialPolygonsDataFrame", "SpatVector", "SpatialPolygons")) {
     stop("The study area should be a spatial object [SpatialPolygonsDataFrame, SpatVector, SpatialPolygons]")
@@ -80,25 +80,28 @@ downloadMODIS=function(study_area_boundaries, date, satellite, username, passwor
 
     #Find objetive tiles
     data("MODIS_tiles")
-
     MODIS_tiles = terra::vect(MODIS_tiles)
+    #This is due to an inconsistency in th eMODIS tiles boundaries,
+    #The same problem was found in other libraries.
+    #The MODIS tiles shapefiles are shifted until find a better solution
+    MODIS_tiles = terra::shift(MODIS_tiles,20000,15000)
+
     if(class(study_area_boundaries)[1] != "SpatVector"){
       study_area_boundaries = terra::vect(study_area_boundaries)
     }
 
     #Extract intersected h and v info
     study_area_boundaries = terra::project(study_area_boundaries,terra::crs(MODIS_tiles))
-    MODIS_crop = terra::crop(MODIS_tiles,study_area_boundaries)
-
-    h = as.character(MODIS_crop$h)
-    v = as.character(MODIS_crop$v)
-
-
     #Buffer to the study area
     border =  terra::ext(c(terra::xmin(study_area_boundaries) -500* buff,
                            terra::xmax(study_area_boundaries) +500* buff,
                            terra::ymin(study_area_boundaries) -500* buff,
                            terra::ymax(study_area_boundaries) +500* buff))
+
+    MODIS_crop = terra::crop(MODIS_tiles,border)
+
+    h = as.character(MODIS_crop$h)
+    v = as.character(MODIS_crop$v)
 
     if(satellite == "Combined"){
       modis_tile_MYD=mapply(modissnow_get_data, date, h=as.numeric(h), v=as.numeric(v),
@@ -114,7 +117,6 @@ downloadMODIS=function(study_area_boundaries, date, satellite, username, passwor
         modis_tile_MYD = modis_tile_MYD[[1]]
         modis_tile_MOD = modis_tile_MOD[[1]]
       }
-
 
       modis_tile_MYD = try(terra::crop(modis_tile_MYD[[1]], border),silent = T)
       modis_tile_MOD = try(terra::crop(modis_tile_MOD[[1]], border),silent = T)
@@ -159,7 +161,6 @@ downloadMODIS=function(study_area_boundaries, date, satellite, username, passwor
       }else{
         modis_tile = modis_tile[[1]]
       }
-
 
       modis_tile = terra::crop(modis_tile[[1]], border)
       tidy_modis(modis_tile, name_out)

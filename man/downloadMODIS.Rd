@@ -11,7 +11,7 @@ downloadMODIS(
   username,
   password,
   out_path,
-  buff = 3
+  buff = 5
 )
 }
 \arguments{

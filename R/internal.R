@@ -46,7 +46,7 @@ mod_fSCA = function(x, slp = 1.21 , intrcp = 6){
 #' @importFrom terra nlyr resample app
 #' @export
 
-s2_probability = function(MOD_stack, S2_stack){
+s2_probability = function(MOD_stack, S2_stack, upper_lim = 90, lower_lim = 10){
 
   if(class(MOD_stack)[1] != "SpatRaster" | class(S2_stack)[1] != "SpatRaster") {
     stop("Provide a multiband SpatRaster")
@@ -62,18 +62,19 @@ s2_probability = function(MOD_stack, S2_stack){
 
   all_stack_20 = c(MOD_stack_20,S2_stack)
   sen_prob_dir = paste0(tempfile(),".tif")
-  sen_prob=terra::app(all_stack_20, fun=calc_prob,filename = sen_prob_dir)
+  sen_prob=terra::app(all_stack_20, fun=calc_prob,filename = sen_prob_dir,
+                      upper_lim = upper_lim, lower_lim = lower_lim)
 
   return(sen_prob)
 }
 
-calc_prob = function(x){ # x es el vector MODIS20 + sentinel,
+calc_prob = function(x, upper_lim, lower_lim){ # x es el vector MODIS20 + sentinel,
   #implement it in c++ cppFunction?
 
   MODIS_temp = x[1:(length(x)/2)]
   sentinel_temp = x[((length(x)/2) + 1):length(x)]
 
-  id = which(MODIS_temp > 10 & MODIS_temp < 90 & !is.nan(sentinel_temp))
+  id = which(MODIS_temp > lower_lim & MODIS_temp < upper_lim & !is.na(MODIS_temp) & !is.nan(sentinel_temp))
 
   if(length(id) < 1){
     #print("pixel malo")
