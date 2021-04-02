@@ -19,7 +19,7 @@ Once ProbModis is computed for a specific study area, the snow covered fraction 
 The package uses the Rspatial/terra library. See  [Rspatial/terra](https://github.com/rspatial/terra) for details
 ### Linux
 ```
-remotes::install_github("rspatial/terra")
+remotes::install_github("ealonsogzl/ProbModis")
 ```
 ### Windows
 The package is not tested yet in Windows, but it should work..
