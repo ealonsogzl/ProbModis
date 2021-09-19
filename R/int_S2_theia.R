@@ -147,10 +147,15 @@ s2_theia_get_data = function(study_area_boundaries, time_window, out_path, max_c
 
     new_zips = list.files(tmp_storage,full.names = T, pattern = "*zip")
 
-    #check if theia comes from landsat
+    #check if theia comes from landsat or multisat
     if(length(grep("LANDSAT",new_zips))>0){ #Landsat not suported yet
       file.remove(new_zips[grep("LANDSAT",new_zips)])
       new_zips = new_zips[-grep("LANDSAT",new_zips)]
+      #stop("borrar landsat")
+    }
+    if(length(grep("MULTISAT",new_zips))>0){ #Multisat not suported yet
+      file.remove(new_zips[grep("MULTISAT",new_zips)])
+      new_zips = new_zips[-grep("MULTISAT",new_zips)]
       #stop("borrar landsat")
     }
     #Skipp iteration if no scenes are available
